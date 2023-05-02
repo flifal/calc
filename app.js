@@ -1,5 +1,3 @@
-let dot = document.getElementById("dot");
-let b = 0;
 let screen = document.querySelectorAll("#screen div");
 let input = document.getElementById("input");
 let output = document.getElementById("output");
@@ -23,30 +21,10 @@ function clear() {
             if (el.dataset.more == "del") {
                 if (input.innerText.length > 1) {
                     if (input.innerText.slice(-1) == ".") {
-                        //a--;
-                        if (a != 1 && x != 1) {
-                            a = 2;
-                            x = 3;
-                        } else if (x == 1 && x == 1) {
-                            a = 3;
-                            x = 2;
-                        }
+                        a--;
                     } else if (input.innerText.slice(-1).match(/[+x\-÷]$/)) {
-                        if (x == 2 && a == 1) {
-                            a = 0;
-                            x = 1;
-                        } else if (x == 1 && a == 0) {
-                            a = 1;
-                            x = 1;
-                        } else if (a == 2 && x == 3) {
-                            x = 1;
-                            a = 0;
-                        } else if (x == 5 && a == 4) {
-                            a = 1;
-                            x = 1;
-                        } else {
-                            a = 0;
-                            x = 1;
+                        if (a < x) {
+                            a++;
                         }
                     }
                     input.innerText = input.innerText.substring(
@@ -76,8 +54,7 @@ function addNum() {
                         !input.innerText.slice(-1).match(/[+x\-÷-]/)
                     ) {
                         input.innerText = "0.";
-                        a = 1;
-                        x = 1;
+                        a++;
                     }
                 } else if (input.innerText != "0") {
                     if (num.dataset.num != ".") {
@@ -88,8 +65,7 @@ function addNum() {
                         !input.innerText.slice(-1).match(/[+x\-÷-]/)
                     ) {
                         input.innerText += num.dataset.num;
-                        a = 1;
-                        x = 1;
+                        a++;
                     }
                 }
             }
@@ -108,33 +84,15 @@ function op() {
             ) {
                 if (out != 0) {
                     input.innerText = `${out}${op.innerText}`;
-                    if (a == 1 && x == 1) {
-                        a = 0;
-                        x = 1;
-                    } else if (a == 1 && x == 2) {
-                        a = 1;
-                        x = 2;
-                    }
                 } else {
                     input.innerText += `${op.innerText}`;
-                    if (a == 1 && x == 1) {
-                        a = 0;
-                        x = 1;
-                    } else if (a == 1 && x == 2) {
-                        a = 1;
-                        x = 2;
-                    }
                 }
             }
             if (input.innerText != "0") {
                 if (!input.innerText.slice(-1).match(/[+x\-÷.-]/)) {
                     input.innerText += `${op.innerText}`;
-                    if (x == 1 && a == 1) {
-                        x = 1;
-                        a = 0;
-                    } else if (a == 0 && x == 1) {
-                        a = 1;
-                        x = 2;
+                    if (x == a) {
+                        x++;
                     }
                 }
             }
