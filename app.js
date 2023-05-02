@@ -6,7 +6,7 @@ let numbers = document.querySelectorAll(".numbers button");
 let operators = document.querySelectorAll("[data-op]");
 let equal = document.querySelector("[data-eq]");
 let all = "";
-let out;
+let out = 0;
 let x = 1;
 let a = 0;
 function clear() {
