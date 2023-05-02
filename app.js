@@ -28,8 +28,8 @@ function clear() {
                             a = 2;
                             x = 3;
                         } else if (x == 1 && x == 1) {
-                            a = 4;
-                            x = 5;
+                            a = 3;
+                            x = 2;
                         }
                     } else if (input.innerText.slice(-1).match(/[+x\-÷]$/)) {
                         if (x == 2 && a == 1) {
@@ -41,6 +41,9 @@ function clear() {
                         } else if (a == 2 && x == 3) {
                             x = 1;
                             a = 0;
+                        } else if (x == 5 && a == 4) {
+                            a = 1;
+                            x = 1;
                         } else {
                             a = 0;
                             x = 1;
