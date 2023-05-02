@@ -6,6 +6,7 @@ let numbers = document.querySelectorAll(".numbers button");
 let operators = document.querySelectorAll("[data-op]");
 let equal = document.querySelector("[data-eq]");
 let all = "";
+let out;
 let x = 1;
 let a = 0;
 function clear() {
@@ -24,12 +25,7 @@ function clear() {
                 if (input.innerText.length > 1) {
                     if (input.innerText.slice(-1) == ".") {
                         a--;
-                    } else if (
-                        input.innerText.slice(-1) == "+" ||
-                        input.innerText.slice(-1) == "x" ||
-                        input.innerText.slice(-1) == "-" ||
-                        input.innerText.slice(-1) == "÷"
-                    ) {
+                    } else if (input.innerText.slice(-1).match(/[+x\-÷]$/)) {
                         if (a < x) {
                             a++;
                         }
@@ -60,29 +56,18 @@ function addNum() {
                     if (
                         num.dataset.num == "." &&
                         a < x &&
-                        input.innerText.slice(-1) != "+" &&
-                        input.innerText.slice(-1) != "x" &&
-                        input.innerText.slice(-1) != "÷" &&
-                        input.innerText.slice(-1) != "-"
+                        !input.innerText.slice(-1).match(/[+x\-÷-]/)
                     ) {
                         input.innerText = "0.";
                         a++;
                     }
-                }
-                ///////////
-                else if (input.innerText != "0") {
-                    //////////////////////////////////
+                } else if (input.innerText != "0") {
                     if (num.dataset.num != ".") {
                         input.innerText += num.dataset.num;
-                    }
-                    /////////////
-                    else if (
+                    } else if (
                         num.dataset.num == "." &&
                         a < x &&
-                        input.innerText.slice(-1) != "+" &&
-                        input.innerText.slice(-1) != "x" &&
-                        input.innerText.slice(-1) != "÷" &&
-                        input.innerText.slice(-1) != "-"
+                        !input.innerText.slice(-1).match(/[+x\-÷-]/)
                     ) {
                         input.innerText += num.dataset.num;
                         a++;
@@ -102,16 +87,14 @@ function op() {
                 input.innerText == "0" &&
                 !input.innerText.includes(op.innerText)
             ) {
-                input.innerText += `${op.innerText}`;
+                if (out != 0) {
+                    input.innerText = `${out}${op.innerText}`;
+                } else {
+                    input.innerText += `${op.innerText}`;
+                }
             }
             if (input.innerText != "0") {
-                if (
-                    input.innerText.slice(-1) != "+" &&
-                    input.innerText.slice(-1) != "x" &&
-                    input.innerText.slice(-1) != "÷" &&
-                    input.innerText.slice(-1) != "-" &&
-                    input.innerText.slice(-1) != "."
-                ) {
+                if (!input.innerText.slice(-1).match(/[+x\-÷.-]/)) {
                     input.innerText += `${op.innerText}`;
                     if (x == a) {
                         x++;
@@ -129,7 +112,7 @@ function equals() {
         a = 0;
         all = input.innerText;
         let newStr = all.replace(/÷/g, "/").replace(/x/g, "*");
-        let out = Number(eval(newStr));
+        out = Number(eval(newStr));
         if (Number.isInteger(out)) {
             output.innerText = out;
         } else {
