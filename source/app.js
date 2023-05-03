@@ -32,12 +32,15 @@ function result() {
         all = input.innerText;
         let newOperation = all.replace(/÷/g, "/").replace(/x/g, "*");
         out = Number(eval(newOperation));
-        if (Number.isInteger(out) && input.innerText != 0) {
-            output.innerText = out;
-            input.innerText = "0";
-        } else if (!Number.isInteger(out)) {
-            output.innerText = out.toFixed(3);
-            input.innerText = "0";
+        if (out != "Infinity") {
+            if (Number.isInteger(out) && input.innerText != 0) {
+                output.innerText = out;
+                input.innerText = "0";
+            } else if (!Number.isInteger(out)) {
+                output.innerText = out.toFixed(3);
+                input.innerText = "0";
+            }
+            out = Number(output.innerText);
         }
     };
 }
