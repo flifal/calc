@@ -76,7 +76,11 @@ function addOperators() {
                 !input.innerText.includes(op.innerText)
             ) {
                 if (out) {
-                    input.innerText = out.toFixed(3) + op.innerText;
+                    if (Number.isInteger(out)) {
+                        input.innerText = out + op.innerText;
+                    } else {
+                        input.innerText = out.toFixed(3) + op.innerText;
+                    }
                 } else {
                     input.innerText += op.innerText;
                 }
