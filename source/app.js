@@ -7,12 +7,13 @@ const operators = document.querySelectorAll("[data-operator]");
 const equal = document.querySelector("[data-equal]");
 const dot = document.querySelector("[data-dot]");
 let all;
-let out = false;
+let out = 0;
 
 function clear() {
     clr.onclick = function () {
         input.innerText = "0";
         output.innerText = "";
+        out = false;
     };
 }
 
@@ -21,6 +22,7 @@ function dltLastCharacter() {
         if (input.innerText == "0") event.preventDefault();
         else if (input.innerText != "0" && input.innerText.length == 1) {
             input.innerText = "0";
+            out = 0;
         } else {
             input.innerText = input.innerText.slice(0, -1);
         }
@@ -32,7 +34,7 @@ function result() {
         all = input.innerText;
         let newOperation = all.replace(/÷/g, "/").replace(/x/g, "*");
         out = Number(eval(newOperation));
-        if (out != "Infinity") {
+        if (/\d/.test(out) && typeof out !== "undefined") {
             if (Number.isInteger(out) && input.innerText != 0) {
                 output.innerText = out;
                 input.innerText = "0";
@@ -78,7 +80,7 @@ function addOperators() {
                 input.innerText == "0" &&
                 !input.innerText.includes(op.innerText)
             ) {
-                if (out) {
+                if (/\d/.test(out)) {
                     if (Number.isInteger(out)) {
                         input.innerText = out + op.innerText;
                     } else {
