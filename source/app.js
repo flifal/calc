@@ -13,7 +13,7 @@ function clear() {
     clr.onclick = function () {
         input.innerText = "0";
         output.innerText = "";
-        out = false;
+        out = 0;
     };
 }
 
